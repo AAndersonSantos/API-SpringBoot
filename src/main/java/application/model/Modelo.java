@@ -30,7 +30,7 @@ public class Modelo implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long modeloId;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "modelo" )
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "modelo")
 	@JsonBackReference
     private List<Carro> carro;
 	
