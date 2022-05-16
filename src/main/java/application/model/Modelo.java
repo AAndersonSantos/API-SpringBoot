@@ -1,6 +1,7 @@
 package application.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,6 @@ public class Modelo implements Serializable{
 	@NotBlank(message = "{campo.nome.modelo}")
 	private String nome;
 	
-	private Double valor_fipe;
+	private BigDecimal valor_fipe;
 	
 }
