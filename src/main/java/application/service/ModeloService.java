@@ -37,7 +37,7 @@ public class ModeloService {
 		return modeloRepository.findById(id)
 			.map((updateModelo) -> {
 				updateModelo.setNome(modelo.getNome());
-				//updateModelo.setMarca(modelo.getMarca());
+				updateModelo.setMarca(modelo.getMarca());
 				updateModelo.setValor_fipe(modelo.getValor_fipe());
 				return modeloRepository.save(updateModelo);
 			})

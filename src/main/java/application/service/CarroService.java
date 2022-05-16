@@ -40,7 +40,7 @@ public class CarroService{
 				.findById(id)
 				.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Carro não encontrado"));
 		
-		//carro.setModelo(carroRequest.getModelo());
+		carro.setModelo(carroRequest.getModelo());
 		carro.setAno(carroRequest.getAno());
 		carro.setCombustivel(carroRequest.getCombustivel());
 		carro.setNum_portas(carroRequest.getNum_portas());
