@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -32,10 +31,10 @@ public class Modelo implements Serializable{
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "modelo")
 	@JsonBackReference
-    private List<Carro> carro;
+    public List<Carro> carro;
 	
-	@Size (min = 2, message = "{campo.sizeMin.modelo}")
-	@Size(max = 20, message = "{campo.sizeMax.modelo}")
+	//@Size(min = 2, message = "{campo.min.modelo}")
+	//@Size(max = 20, message = "{campo.max.modelo}")
 	@NotBlank(message = "{campo.nome.modelo}")
 	private String nome;
 	
