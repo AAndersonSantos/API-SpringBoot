@@ -9,16 +9,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 
+//@Table(name="marca")
 @Entity
 @Data
-@Table(name="marca")
 public class Marca implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

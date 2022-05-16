@@ -29,7 +29,7 @@ public class Modelo implements Serializable{
 	private Long modeloId;
 	
 	@ManyToOne
-	@JoinColumn(name = "marca_id")
+	@JoinColumn(name = "marcaId")
 	public Marca marca;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "modelo")

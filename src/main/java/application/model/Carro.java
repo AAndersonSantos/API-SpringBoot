@@ -9,13 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
-import javax.persistence.Table;
 
 import lombok.Data;
 
+//@Table(name="carro")
 @Entity
 @Data
-@Table(name="carro")
 public class Carro{
 	
 	@Id
@@ -23,7 +22,7 @@ public class Carro{
 	private Long id;
 	
 	@ManyToOne
-    @JoinColumn(name = "modelo_id")
+    @JoinColumn(name = "modeloId")
     public Modelo modelo;
 	
 	private Integer ano;
