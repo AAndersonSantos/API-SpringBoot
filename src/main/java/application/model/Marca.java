@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 
-//@Table(name="marca")
 @Entity
 @Data
 public class Marca implements Serializable{

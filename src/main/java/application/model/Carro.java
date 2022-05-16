@@ -12,7 +12,6 @@ import javax.persistence.PrePersist;
 
 import lombok.Data;
 
-//@Table(name="carro")
 @Entity
 @Data
 public class Carro{
@@ -22,7 +21,7 @@ public class Carro{
 	private Long id;
 	
 	@ManyToOne
-    @JoinColumn(name = "modeloId")
+    @JoinColumn(name = "modelo_id")
     public Modelo modelo;
 	
 	private Integer ano;
