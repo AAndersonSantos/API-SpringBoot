@@ -11,16 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 
+//@Table(name="tb_modelo")
 @Entity
 @Data
-@Table(name="tb_modelo")
 public class Modelo implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -28,6 +27,10 @@ public class Modelo implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long modeloId;
+	
+	@ManyToOne
+	@JoinColumn(name = "marca_id")
+	public Marca marca;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "modelo")
 	@JsonBackReference
@@ -39,9 +42,5 @@ public class Modelo implements Serializable{
 	private String nome;
 	
 	private Double valor_fipe;
-	
-	@ManyToOne
-	@JoinColumn(name = "marca_id")
-	public Marca marca;
 	
 }
