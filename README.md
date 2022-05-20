@@ -4,8 +4,6 @@
 ---
 
 <h1 align="center">🚀 Teste - Ws Work </h1>
-<h3><img src="https://img.shields.io/badge/Java-11-green 
-"></h3>
 
 <h2 align="center">👁‍🗨👁‍🗨</h2>
 <h3 align="center">✅ Teste pelo Localhost 8080 usando o Postman</h3>
