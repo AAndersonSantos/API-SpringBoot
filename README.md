@@ -12,7 +12,7 @@
 
 <h3 align="center">✅ Teste depois de fazer o deploy no heroku</h3>
 <p>
-<h1 align="center"><img src="./img/teste-local.gif"></h1>
+<h1 align="center"><img src="./img/teste-heroku.gif"></h1>
 
 ## **`Sobre`**
 
