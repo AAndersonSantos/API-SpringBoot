@@ -21,7 +21,7 @@ public class Carro{
 	private Long id;
 	
 	@ManyToOne
-    @JoinColumn(name = "modelo_id")
+	@JoinColumn(name = "modelo_id")	
     public Modelo modelo;
 	
 	private Integer ano;
