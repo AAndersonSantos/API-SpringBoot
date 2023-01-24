@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import application.dto.GetAllCarroDto;
 import application.model.Carro;
 import application.repository.CarroRepository;
 
@@ -21,8 +22,8 @@ public class CarroService{
 		return carroRepository.save(carro);
 	}
 	
-	public List<Carro> getAllCarros() {
-		return carroRepository.findAll();
+	public List<GetAllCarroDto> getAllCarros() {
+		return carroRepository.getJoinInformation();
 	}
 	
 	public Carro getCarroById(long id) {

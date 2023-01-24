@@ -1,10 +1,11 @@
 package application.controller;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import application.dto.ModeloDto;
 import application.model.Modelo;
 import application.service.ModeloService;
 
@@ -28,29 +29,48 @@ import application.service.ModeloService;
 public class ModeloController {
 	
 	@Autowired
-	ModeloService modeloService;
+	private ModelMapper modelMapper;
+	
+	@Autowired
+	private ModeloService modeloService;
 	
 	@PostMapping("/created")
-	@ResponseStatus(HttpStatus.CREATED)
-    	public Modelo createMarca(@RequestBody @Valid Modelo modelo) {
-        return modeloService.saveModelo(modelo);
+    public ResponseEntity<ModeloDto> createMarca(@RequestBody @Valid ModeloDto modeloDto) {
+        
+		Modelo modeloRequest = modelMapper.map(modeloDto, Modelo.class);
+		Modelo modelo = modeloService.saveModelo(modeloRequest);
+		ModeloDto modeloResponse = modelMapper.map(modelo, ModeloDto.class);
+		
+		return new ResponseEntity<ModeloDto>(modeloResponse, HttpStatus.CREATED);
     }
 	
 	@GetMapping("")
-	@ResponseStatus(HttpStatus.OK)
-	 public List<Modelo> getAllModelos(){
-		return modeloService.getModelo();
+	 public List<ModeloDto> getAllModelos(){
+		return modeloService.getModelo()
+				.stream()
+				.map(post -> modelMapper.map(post, ModeloDto.class))
+				.collect(Collectors.toList());
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<Modelo> getModeloById(@PathVariable Long id) {
-		return modeloService.getModeloById(id);
+	public ResponseEntity<ModeloDto> getModeloById(@PathVariable Long id) {
+		Modelo modelo = modeloService.getModeloById(id);
+		ModeloDto modeloResponse = modelMapper.map(modelo, ModeloDto.class);
+		
+		return ResponseEntity.ok().body(modeloResponse);
 	}
 	
 	@PutMapping("/update/{id}")
-	public ResponseEntity<Modelo> updateModelo(@PathVariable Long id, @RequestBody @Valid Modelo modelo) {
-		Modelo modeloObj = modeloService.update(id, modelo);
-		return ResponseEntity.ok().body(modeloObj);
+	public ResponseEntity<ModeloDto> updateModelo(@PathVariable Long id, @RequestBody @Valid ModeloDto modeloDto) {
+		
+		//Convert DTO to entity
+		Modelo modeloRequest = modelMapper.map(modeloDto, Modelo.class);
+		Modelo modelo = modeloService.updateModelo(id, modeloRequest);
+
+		//Entity to DTO
+		ModeloDto modeloResponse = modelMapper.map(modelo, ModeloDto.class);
+		return ResponseEntity.ok().body(modeloResponse);
+		
 	}
 	
 	@DeleteMapping("/delete/{id}")

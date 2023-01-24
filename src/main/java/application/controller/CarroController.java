@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import application.dto.CarroDto;
+import application.dto.GetAllCarroDto;
 import application.model.Carro;
+import application.repository.CarroRepository;
 import application.service.CarroService;
 
 @RestController
@@ -34,6 +36,9 @@ public class CarroController {
 	@Autowired
 	private CarroService carroService;
 	
+	@Autowired
+	CarroRepository carroRepository;
+	
 	@PostMapping("/created")
 	public ResponseEntity<CarroDto> saveCarro(@RequestBody @Valid CarroDto carroDto){
 		
@@ -45,10 +50,10 @@ public class CarroController {
 	}
 	
 	@GetMapping("")
-	public List<CarroDto> getAllCarros(){
+	public List<GetAllCarroDto> getAllCarros(){
 		return carroService.getAllCarros()
 				.stream()
-				.map(post -> modelMapper.map(post, CarroDto.class))
+				.map(post -> modelMapper.map(post, GetAllCarroDto.class))
 				.collect(Collectors.toList());
 	}
 	

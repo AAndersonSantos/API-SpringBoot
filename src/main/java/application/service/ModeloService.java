@@ -15,33 +15,38 @@ import application.repository.ModeloRepository;
 public class ModeloService {
 
 	@Autowired
-	private ModeloRepository modeloRepository;
-	
+	ModeloRepository modeloRepository;
+
 	public Modelo saveModelo(Modelo modelo) {
-        return modeloRepository.save(modelo);
-    }
-	
-	public List<Modelo> getModelo(){
-		 return modeloRepository.findAll();
-	 }
-	
-	public Optional<Modelo> getModeloById(Long id) {
-		 return modeloRepository.findById(id); 
-	 }
-	
-	public void deleteModeloById(Long id) {
-		modeloRepository.deleteById(id);
-	 }
-	
-	public Modelo update(Long id, Modelo modelo) {
-		return modeloRepository.findById(id)
-			.map((updateModelo) -> {
-				updateModelo.setNome(modelo.getNome());
-				updateModelo.setMarca(modelo.getMarca());
-				updateModelo.setValor_fipe(modelo.getValor_fipe());
-				return modeloRepository.save(updateModelo);
-			})
-			.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modelo não encontrada"));
+		return modeloRepository.save(modelo);
 	}
-	
+
+	public List<Modelo> getModelo() {
+		return modeloRepository.findAll();
+	}
+
+	public Modelo getModeloById(Long id) {
+		Optional<Modelo> modelo = modeloRepository.findById(id);
+		if (modelo.isPresent()) {
+			return modelo.get();
+		} else {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Modelo não encontrado");
+		}
+	}
+
+	public Modelo updateModelo(Long id, Modelo modeloRequest) {
+		Modelo modelo = modeloRepository.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modelo não encontrado"));
+
+		modelo.setNome(modeloRequest.getNome());
+		modelo.setMarca(modeloRequest.getMarca());
+		modelo.setValor_fipe(modeloRequest.getValor_fipe());
+		return modeloRepository.save(modelo);
+	}
+
+	public void deleteModeloById(Long id) {
+		Modelo modelo = modeloRepository.findById(id)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Modelo não encontrado"));
+		modeloRepository.delete(modelo);
+	}
 }
